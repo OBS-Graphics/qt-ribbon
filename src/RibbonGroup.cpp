@@ -24,12 +24,11 @@
 #include "RibbonGroup.h"
 
 #include "RibbonWidget.h"
+#include "RibbonTheme.h"
 
-#include <QGuiApplication>
 #include <QPaintEvent>
 #include <QPainter>
 #include <QRegularExpression>
-#include <QStyleHints>
 
 #if defined(Q_OS_WINDOWS)
 constexpr auto TitleAdjustment = -4;
@@ -61,7 +60,7 @@ auto Nedrysoft::Ribbon::RibbonGroup::paintEvent(QPaintEvent *event) -> void {
     auto widgetRect = rect();
     auto currentTheme = Nedrysoft::Ribbon::Light;
 
-    if (QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark) {
+    if (Nedrysoft::Ribbon::isDarkMode()) {
         currentTheme = Nedrysoft::Ribbon::Dark;
     }
 

@@ -26,12 +26,11 @@
 #include "RibbonTabBar.h"
 
 #include "RibbonWidget.h"
+#include "RibbonTheme.h"
 
 #include <QApplication>
-#include <QGuiApplication>
 #include <QPaintEvent>
 #include <QPainter>
-#include <QStyleHints>
 #include <QWindow>
 
 constexpr auto ThemeStylesheet = R"(
@@ -50,11 +49,9 @@ Nedrysoft::Ribbon::RibbonTabBar::RibbonTabBar(QWidget *parent) :
 
     m_mouseInWidget = false;
 
-    connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, [this](Qt::ColorScheme scheme) {
-        updateStyleSheet(scheme == Qt::ColorScheme::Dark);
-    });
+    Nedrysoft::Ribbon::connectThemeChange(this, [this](bool isDark) { updateStyleSheet(isDark); });
 
-    updateStyleSheet(QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark);
+    updateStyleSheet(Nedrysoft::Ribbon::isDarkMode());
 
 #if defined(Q_OS_UNIX)
     setMouseTracking(true);
@@ -134,7 +131,7 @@ auto Nedrysoft::Ribbon::RibbonTabBar::paintEvent(QPaintEvent *event) -> void {
     QPainter painter(this);
     auto  currentTheme = Ribbon::Light;
 
-    if (QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark) {
+    if (Nedrysoft::Ribbon::isDarkMode()) {
         currentTheme = Nedrysoft::Ribbon::Dark;
     }
 

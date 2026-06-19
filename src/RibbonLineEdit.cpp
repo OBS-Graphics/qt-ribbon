@@ -22,15 +22,14 @@
  */
 
 #include "RibbonLineEdit.h"
+#include "RibbonTheme.h"
 
 #include <QApplication>
 #include <QMimeData>
 #include <QPainter>
 #include <QPicture>
 #include <QResizeEvent>
-#include <QGuiApplication>
 #include <QSpacerItem>
-#include <QStyleHints>
 
 constexpr auto ThemeStylesheet = R"(
     QTextEdit {
@@ -52,9 +51,7 @@ Nedrysoft::Ribbon::RibbonLineEdit::RibbonLineEdit(QWidget *parent) :
 
     setAttribute(Qt::WA_MacShowFocusRect,false);
 
-    connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, [this](Qt::ColorScheme scheme) {
-        updateStyleSheet(scheme == Qt::ColorScheme::Dark);
-    });
+    Nedrysoft::Ribbon::connectThemeChange(this, [this](bool isDark) { updateStyleSheet(isDark); });
 
     connect(this, &Nedrysoft::Ribbon::RibbonLineEdit::textChanged, [this]() {
 #if defined(__clang__)
@@ -67,7 +64,7 @@ Nedrysoft::Ribbon::RibbonLineEdit::RibbonLineEdit(QWidget *parent) :
 #endif
     });
 
-    updateStyleSheet(QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark);
+    updateStyleSheet(Nedrysoft::Ribbon::isDarkMode());
 
     setLineWrapMode(QTextEdit::NoWrap);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -84,7 +81,7 @@ Nedrysoft::Ribbon::RibbonLineEdit::RibbonLineEdit(QWidget *parent) :
 
     QPalette palette = QTextEdit::palette();
 
-    if (QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark) {
+    if (Nedrysoft::Ribbon::isDarkMode()) {
         palette.setColor(QPalette::PlaceholderText, QColor(Qt::darkGray).lighter(125));
     } else {
         palette.setColor(QPalette::PlaceholderText, Qt::darkGray);
