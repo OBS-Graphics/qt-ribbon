@@ -31,11 +31,6 @@
 #include <QStyleHints>
 
 constexpr auto ThemeStylesheet = R"(
-    QWidget {
-        font-family: "Open Sans";
-        font-size: 10pt;
-    }
-
     QPushButton {
         border-radius: none;
     }

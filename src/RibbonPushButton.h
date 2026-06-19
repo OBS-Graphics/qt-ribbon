@@ -33,7 +33,6 @@
 namespace Nedrysoft { namespace Ribbon {
     constexpr auto RibbonPushButtonDefaultIconWidth = 32;
     constexpr auto RibbonPushButtonDefaultIconHeight = 48;
-    constexpr auto RibbonPushButtonDefaultFontSize = 10;
 
     /**
      * @brief       The RibbonPushButton widget provides a ribbon stylised push button with icon and optional text.

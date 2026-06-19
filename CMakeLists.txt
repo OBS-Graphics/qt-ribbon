@@ -48,8 +48,6 @@ set(library_SOURCES
     src/RibbonComboBox.h
     src/RibbonDropButton.cpp
     src/RibbonDropButton.h
-    src/RibbonFontManager.cpp
-    src/RibbonFontManager.h
     src/RibbonGroup.cpp
     src/RibbonGroup.h
     src/RibbonLineEdit.cpp
