@@ -22,9 +22,8 @@
  */
 
 #include "RibbonSlider.h"
+#include "RibbonTheme.h"
 
-#include <QGuiApplication>
-#include <QStyleHints>
 
 constexpr auto ThemeStylesheet = R"(
     QSlider {
@@ -51,11 +50,9 @@ Nedrysoft::Ribbon::RibbonSlider::RibbonSlider(QWidget *parent) :
 
     setAttribute(Qt::WA_MacShowFocusRect,false);
 
-    connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, [this](Qt::ColorScheme scheme) {
-        updateStyleSheet(scheme == Qt::ColorScheme::Dark);
-    });
+    Nedrysoft::Ribbon::connectThemeChange(this, [this](bool isDark) { updateStyleSheet(isDark); });
 
-    updateStyleSheet(QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark);
+    updateStyleSheet(Nedrysoft::Ribbon::isDarkMode());
 }
 
 Nedrysoft::Ribbon::RibbonSlider::~RibbonSlider() {

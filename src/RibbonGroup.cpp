@@ -23,14 +23,12 @@
 
 #include "RibbonGroup.h"
 
-#include "RibbonFontManager.h"
 #include "RibbonWidget.h"
+#include "RibbonTheme.h"
 
-#include <QGuiApplication>
 #include <QPaintEvent>
 #include <QPainter>
 #include <QRegularExpression>
-#include <QStyleHints>
 
 #if defined(Q_OS_WINDOWS)
 constexpr auto TitleAdjustment = -4;
@@ -42,9 +40,8 @@ Nedrysoft::Ribbon::RibbonGroup::RibbonGroup(QWidget *parent) :
         QWidget(parent),
         m_fontMetrics(QFont()) {
 
-    auto fontManager = RibbonFontManager::getInstance();
-
-    m_font = QFont(fontManager->normalFont(), RibbonGroupDefaultFontSize);
+    m_font = font();
+    m_font.setPointSize(RibbonGroupDefaultFontSize);
     m_fontMetrics = QFontMetrics(m_font);
 
     // set the stylesheet font, this then propagates down to all children of the group.
@@ -63,7 +60,7 @@ auto Nedrysoft::Ribbon::RibbonGroup::paintEvent(QPaintEvent *event) -> void {
     auto widgetRect = rect();
     auto currentTheme = Nedrysoft::Ribbon::Light;
 
-    if (QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark) {
+    if (Nedrysoft::Ribbon::isDarkMode()) {
         currentTheme = Nedrysoft::Ribbon::Dark;
     }
 

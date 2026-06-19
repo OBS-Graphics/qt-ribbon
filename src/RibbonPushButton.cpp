@@ -23,13 +23,11 @@
 
 #include "RibbonPushButton.h"
 
-#include "RibbonFontManager.h"
 #include "RibbonWidget.h"
+#include "RibbonTheme.h"
 
 #include <QApplication>
-#include <QGuiApplication>
 #include <QStyle>
-#include <QStyleHints>
 
 constexpr auto ThemeStylesheet = R"(
     QPushButton {
@@ -53,16 +51,10 @@ Nedrysoft::Ribbon::RibbonPushButton::RibbonPushButton(QWidget *parent) :
 
     m_buttonLabel->setAlignment(Qt::AlignHCenter);
 
-    auto fontManager = RibbonFontManager::getInstance();
-
-    auto font = QFont(fontManager->normalFont(), RibbonPushButtonDefaultFontSize);
-
     m_mainButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     m_buttonLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
     m_mainButton->installEventFilter(this);
-
-    m_buttonLabel->setFont(font);
 
     m_layout->addWidget(m_mainButton);
     m_layout->addWidget(m_buttonLabel);
@@ -80,13 +72,11 @@ Nedrysoft::Ribbon::RibbonPushButton::RibbonPushButton(QWidget *parent) :
         Q_EMIT clicked();
     });
 
-    connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, [this](Qt::ColorScheme scheme) {
-        updateStyleSheets(scheme == Qt::ColorScheme::Dark);
-    });
+    Nedrysoft::Ribbon::connectThemeChange(this, [this](bool isDark) { updateStyleSheets(isDark); });
 
     updateSizes();
 
-    updateStyleSheets(QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark);
+    updateStyleSheets(Nedrysoft::Ribbon::isDarkMode());
 }
 
 Nedrysoft::Ribbon::RibbonPushButton::~RibbonPushButton() {
@@ -148,7 +138,7 @@ auto Nedrysoft::Ribbon::RibbonPushButton::eventFilter(QObject *object, QEvent *e
 
         m_mainButton->setStyleSheet(styleSheet);
     } else if (event->type()==QEvent::MouseButtonRelease) {
-        updateStyleSheets(QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark);
+        updateStyleSheets(Nedrysoft::Ribbon::isDarkMode());
     }
 
     return false;

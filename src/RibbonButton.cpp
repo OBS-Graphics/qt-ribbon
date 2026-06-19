@@ -25,13 +25,11 @@
 
 #include "RibbonButton.h"
 
-#include "RibbonFontManager.h"
 #include "RibbonWidget.h"
+#include "RibbonTheme.h"
 
 #include <QApplication>
-#include <QGuiApplication>
 #include <QStyle>
-#include <QStyleHints>
 
 constexpr auto ThemeStylesheet = R"(
     QPushButton {
@@ -53,19 +51,11 @@ constexpr auto ThemeStylesheet = R"(
 Nedrysoft::Ribbon::RibbonButton::RibbonButton(QWidget *parent) :
         QPushButton(parent) {
 
-    auto fontManager = RibbonFontManager::getInstance();
-
-    auto font = QFont(fontManager->normalFont(), RibbonButtonDefaultFontSize);
-
-    setFont(font);
-
     setFlat(true);
 
-    connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, [this](Qt::ColorScheme scheme) {
-        updateStyleSheets(scheme == Qt::ColorScheme::Dark);
-    });
+    Nedrysoft::Ribbon::connectThemeChange(this, [this](bool isDark) { updateStyleSheets(isDark); });
 
-    updateStyleSheets(QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark);
+    updateStyleSheets(Nedrysoft::Ribbon::isDarkMode());
 }
 
 Nedrysoft::Ribbon::RibbonButton::~RibbonButton() {

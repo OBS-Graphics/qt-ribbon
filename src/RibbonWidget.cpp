@@ -22,20 +22,14 @@
  */
 
 #include "RibbonWidget.h"
+#include "RibbonTheme.h"
 
 #include "RibbonTabBar.h"
 
-#include <QGuiApplication>
 #include <QPaintEvent>
 #include <QPainter>
-#include <QStyleHints>
 
 constexpr auto ThemeStylesheet = R"(
-    QWidget {
-        font-family: "Open Sans";
-        font-size: 10pt;
-    }
-
     QPushButton {
         border-radius: none;
     }
@@ -61,7 +55,7 @@ auto Nedrysoft::Ribbon::RibbonWidget::paintEvent(QPaintEvent *event) -> void {
     auto widgetRect = rect();
     auto currentTheme = Nedrysoft::Ribbon::Light;
 
-    if (QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark) {
+    if (Nedrysoft::Ribbon::isDarkMode()) {
         currentTheme = Nedrysoft::Ribbon::Dark;
     }
 
@@ -79,7 +73,7 @@ auto Nedrysoft::Ribbon::RibbonWidget::paintEvent(QPaintEvent *event) -> void {
 auto Nedrysoft::Ribbon::RibbonWidget::backgroundColor() const -> QColor {
     auto currentTheme = Nedrysoft::Ribbon::Light;
 
-    if (QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark) {
+    if (Nedrysoft::Ribbon::isDarkMode()) {
         currentTheme = Nedrysoft::Ribbon::Dark;
     }
 
