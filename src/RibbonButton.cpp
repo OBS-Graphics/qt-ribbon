@@ -26,11 +26,10 @@
 #include "RibbonButton.h"
 
 #include "RibbonWidget.h"
+#include "RibbonTheme.h"
 
 #include <QApplication>
-#include <QGuiApplication>
 #include <QStyle>
-#include <QStyleHints>
 
 constexpr auto ThemeStylesheet = R"(
     QPushButton {
@@ -54,11 +53,9 @@ Nedrysoft::Ribbon::RibbonButton::RibbonButton(QWidget *parent) :
 
     setFlat(true);
 
-    connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, [this](Qt::ColorScheme scheme) {
-        updateStyleSheets(scheme == Qt::ColorScheme::Dark);
-    });
+    Nedrysoft::Ribbon::connectThemeChange(this, [this](bool isDark) { updateStyleSheets(isDark); });
 
-    updateStyleSheets(QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark);
+    updateStyleSheets(Nedrysoft::Ribbon::isDarkMode());
 }
 
 Nedrysoft::Ribbon::RibbonButton::~RibbonButton() {
