@@ -25,8 +25,7 @@
 
 #include "RibbonComboBox.h"
 
-#include <QApplication>
-#include <QSpacerItem>
+#include <ThemeSupport>
 
 constexpr auto ThemeStylesheet = R"(
     QComboBox {
@@ -59,7 +58,7 @@ Nedrysoft::Ribbon::RibbonComboBox::RibbonComboBox(QWidget *parent) :
 
     auto themeSupport = Nedrysoft::ThemeSupport::ThemeSupport::getInstance();
 
-    connect(themeSupport, &Nedrysoft::ThemeSupport::ThemeSupport::themeChanged, [=](bool isDarkMode) {
+    connect(themeSupport, &Nedrysoft::ThemeSupport::ThemeSupport::themeChanged, [this](bool isDarkMode) {
         updateStyleSheet(isDarkMode);
     });
 
@@ -75,7 +74,7 @@ auto Nedrysoft::Ribbon::RibbonComboBox::updateStyleSheet(bool isDarkMode) -> voi
 
 #if defined(Q_OS_MACOS)
     auto themeSupport = Nedrysoft::ThemeSupport::ThemeSupport::getInstance();
-    
+
     styleSheet.replace("[selected-background-colour]", themeSupport->getHighlightedBackground().name());
 #else
     styleSheet.replace("[selected-background-colour]", this->palette().highlight().color().name());

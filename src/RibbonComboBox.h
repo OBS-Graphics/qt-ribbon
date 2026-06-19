@@ -21,13 +21,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NEDRYSOFT_RIBBONCOMBOBOX_H
-#define NEDRYSOFT_RIBBONCOMBOBOX_H
+#pragma once
 
 #include "RibbonSpec.h"
 
 #include <QComboBox>
-#include <ThemeSupport>
 
 namespace Nedrysoft { namespace Ribbon {
     /**
@@ -63,5 +61,3 @@ namespace Nedrysoft { namespace Ribbon {
             auto updateStyleSheet(bool isDarkMode) -> void;
     };
 }}
-
-#endif //NEDRYSOFT_RIBBONCOMBOBOX_H

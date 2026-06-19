@@ -21,8 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PINGNOO_COMPONENTS_CORE_RIBBONACTION_H
-#define PINGNOO_COMPONENTS_CORE_RIBBONACTION_H
+#pragma once
 
 #include <QObject>
 
@@ -36,6 +35,8 @@ namespace Nedrysoft { namespace Ribbon {
 
     class Event {
         public:
+            virtual ~Event() = default;
+
             virtual auto type() -> Nedrysoft::Ribbon::EventType {
                 return Nedrysoft::Ribbon::EventType::Null;
             }
@@ -55,11 +56,11 @@ namespace Nedrysoft { namespace Ribbon {
                 return Nedrysoft::Ribbon::EventType::DropButtonClicked;
             }
 
-            auto button() -> RibbonDropButton * {
+            auto button() const -> RibbonDropButton * {
                 return m_button;
             }
 
-            auto dropDown() -> bool {
+            auto dropDown() const -> bool {
                 return m_dropDown;
             }
 
@@ -116,5 +117,3 @@ namespace Nedrysoft { namespace Ribbon {
             //! @endcond
     };
 }}
-
-#endif // PINGNOO_COMPONENTS_CORE_RIBBONACTION_H

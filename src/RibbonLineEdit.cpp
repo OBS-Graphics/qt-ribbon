@@ -29,6 +29,7 @@
 #include <QPicture>
 #include <QResizeEvent>
 #include <QSpacerItem>
+#include <ThemeSupport>
 
 constexpr auto ThemeStylesheet = R"(
     QTextEdit {
@@ -52,11 +53,11 @@ Nedrysoft::Ribbon::RibbonLineEdit::RibbonLineEdit(QWidget *parent) :
 
     auto themeSupport = Nedrysoft::ThemeSupport::ThemeSupport::getInstance();
 
-    connect(themeSupport, &Nedrysoft::ThemeSupport::ThemeSupport::themeChanged, [=](bool isDarkMode) {
+    connect(themeSupport, &Nedrysoft::ThemeSupport::ThemeSupport::themeChanged, [this](bool isDarkMode) {
         updateStyleSheet(isDarkMode);
     });
 
-    connect(this, &Nedrysoft::Ribbon::RibbonLineEdit::textChanged, [=]() {
+    connect(this, &Nedrysoft::Ribbon::RibbonLineEdit::textChanged, [this]() {
 #if defined(__clang__)
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "VirtualCallInCtorOrDtor"
@@ -82,7 +83,6 @@ Nedrysoft::Ribbon::RibbonLineEdit::RibbonLineEdit(QWidget *parent) :
 
     QTextEdit::setSizePolicy(sizePolicy().horizontalPolicy(), QSizePolicy::Fixed);
 
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 12,0))
     QPalette palette = QTextEdit::palette();
 
     if (themeSupport->isDarkMode()) {
@@ -92,7 +92,6 @@ Nedrysoft::Ribbon::RibbonLineEdit::RibbonLineEdit(QWidget *parent) :
     }
 
     setPalette(palette);
-#endif
 }
 
 void Nedrysoft::Ribbon::RibbonLineEdit::setMinimumHeight(int minimumHeight) {

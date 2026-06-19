@@ -21,8 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NEDRYSOFT_RIBBONBUTTON_H
-#define NEDRYSOFT_RIBBONBUTTON_H
+#pragma once
 
 #include "RibbonSpec.h"
 
@@ -30,8 +29,6 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QWidget>
-#include <ThemeSupport>
-#include <memory>
 
 namespace Nedrysoft { namespace Ribbon {
     class RibbonButtonData;
@@ -73,5 +70,3 @@ namespace Nedrysoft { namespace Ribbon {
             auto updateStyleSheets(bool isDarkMode) -> void;
     };
 }}
-
-#endif //NEDRYSOFT_RIBBONBUTTON_H

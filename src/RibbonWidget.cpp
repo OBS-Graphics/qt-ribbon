@@ -25,9 +25,9 @@
 
 #include "RibbonTabBar.h"
 
-#include <QApplication>
 #include <QPaintEvent>
 #include <QPainter>
+#include <ThemeSupport>
 
 constexpr auto ThemeStylesheet = R"(
     QWidget {
@@ -77,7 +77,7 @@ auto Nedrysoft::Ribbon::RibbonWidget::paintEvent(QPaintEvent *event) -> void {
     painter.restore();
 }
 
-auto Nedrysoft::Ribbon::RibbonWidget::backgroundColor() -> QColor {
+auto Nedrysoft::Ribbon::RibbonWidget::backgroundColor() const -> QColor {
     auto currentTheme = Nedrysoft::Ribbon::Light;
 
     auto themeSupport = Nedrysoft::ThemeSupport::ThemeSupport::getInstance();

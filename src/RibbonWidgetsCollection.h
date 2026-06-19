@@ -21,8 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NEDRYSOFT_RIBBONWIDGETSCOLLECTION_H
-#define NEDRYSOFT_RIBBONWIDGETSCOLLECTION_H
+#pragma once
 
 #include <QtUiPlugin/QDesignerCustomWidgetCollectionInterface>
 
@@ -63,4 +62,3 @@ class RibbonWidgetsCollection :
         //! @endcond
 };
 
-#endif // NEDRYSOFT_RIBBONWIDGETSCOLLECTION_H

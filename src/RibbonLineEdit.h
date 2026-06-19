@@ -21,14 +21,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NEDRYSOFT_RIBBONLINEDIT_H
-#define NEDRYSOFT_RIBBONLINEDIT_H
+#pragma once
 
 #include "RibbonSpec.h"
 
 #include <QLineEdit>
 #include <QTextEdit>
-#include <ThemeSupport>
 
 namespace Nedrysoft { namespace Ribbon {
     /**
@@ -132,5 +130,3 @@ namespace Nedrysoft { namespace Ribbon {
             auto updateStyleSheet(bool isDarkMode) -> void;
     };
 }}
-
-#endif //NEDRYSOFT_RIBBONLINEDIT_H
