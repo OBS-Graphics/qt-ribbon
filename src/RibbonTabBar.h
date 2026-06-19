@@ -21,14 +21,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NEDRYSOFT_RIBBONTABBAR_H
-#define NEDRYSOFT_RIBBONTABBAR_H
+#pragma once
 
 #include "RibbonSpec.h"
 
 #include <QFont>
 #include <QTabBar>
-#include <ThemeSupport>
 
 namespace Nedrysoft { namespace Ribbon {
     class RibbonFontManager;
@@ -103,5 +101,3 @@ namespace Nedrysoft { namespace Ribbon {
             //! @endcond
     };
 }}
-
-#endif // NEDRYSOFT_RIBBONTABBAR_H

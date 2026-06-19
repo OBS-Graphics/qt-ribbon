@@ -21,8 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NEDRYSOFT_RIBBONFONTMANAGER_H
-#define NEDRYSOFT_RIBBONFONTMANAGER_H
+#pragma once
 
 #include "RibbonSpec.h"
 
@@ -69,14 +68,14 @@ namespace Nedrysoft { namespace Ribbon {
              *
              * @returns     the normal font family name
              */
-            auto normalFont() -> QString const;
+            auto normalFont() const -> QString;
 
             /**
              * @brief       Returns the bold font name
              *
              * @returns     the bold font family name
              */
-            auto boldFont() -> QString const;
+            auto boldFont() const -> QString;
 
         private:
             //! @cond
@@ -87,5 +86,3 @@ namespace Nedrysoft { namespace Ribbon {
             //! @endcond
     };
 }}
-
-#endif // NEDRYSOFT_RIBBONFONTMANAGER_H

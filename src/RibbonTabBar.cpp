@@ -32,6 +32,7 @@
 #include <QPaintEvent>
 #include <QPainter>
 #include <QWindow>
+#include <ThemeSupport>
 
 constexpr auto ThemeStylesheet = R"(
     QTabBar::tab {
@@ -51,7 +52,7 @@ Nedrysoft::Ribbon::RibbonTabBar::RibbonTabBar(QWidget *parent) :
 
     auto themeSupport = Nedrysoft::ThemeSupport::ThemeSupport::getInstance();
 
-    connect(themeSupport, &Nedrysoft::ThemeSupport::ThemeSupport::themeChanged, [=](bool isDarkMode) {
+    connect(themeSupport, &Nedrysoft::ThemeSupport::ThemeSupport::themeChanged, [this](bool isDarkMode) {
         updateStyleSheet(isDarkMode);
     });
 
@@ -76,11 +77,8 @@ auto Nedrysoft::Ribbon::RibbonTabBar::eventFilter(QObject *watched, QEvent *even
         case QEvent::Enter: {
             auto enterEvent = reinterpret_cast<QEnterEvent *>(event);
 
-#if (QT_VERSION_MAJOR>=6)
             lastTabIndex = tabAt(enterEvent->position().toPoint());
-#else
-            lastTabIndex = tabAt(enterEvent->pos());
-#endif
+
             m_mouseInWidget = true;
 
             update();
@@ -101,11 +99,8 @@ auto Nedrysoft::Ribbon::RibbonTabBar::eventFilter(QObject *watched, QEvent *even
         case QEvent::MouseMove: {
             auto mouseEvent = reinterpret_cast<QMouseEvent *>(event);
 
-#if (QT_VERSION_MAJOR>=6)
             QPoint mousePosition = mouseEvent->position().toPoint();
-#else
-            QPoint mousePosition = mouseEvent->pos();
-#endif
+
             if (lastTabIndex != tabAt(mousePosition)) {
                 update();
 

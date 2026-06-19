@@ -21,8 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NEDRYSOFT_RIBBONPUSHBUTTON_H
-#define NEDRYSOFT_RIBBONPUSHBUTTON_H
+#pragma once
 
 #include "RibbonSpec.h"
 
@@ -30,7 +29,6 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QWidget>
-#include <ThemeSupport>
 
 namespace Nedrysoft { namespace Ribbon {
     constexpr auto RibbonPushButtonDefaultIconWidth = 32;
@@ -74,7 +72,7 @@ namespace Nedrysoft { namespace Ribbon {
              *
              * @returns     the icon assigned to the main button.
              */
-            auto icon() -> QIcon;
+            auto icon() const -> QIcon;
 
             /**
              * @brief       Sets the icon to be displayed on the main button.
@@ -88,7 +86,7 @@ namespace Nedrysoft { namespace Ribbon {
              *
              * @returns     the current size of the icon.
              */
-            auto iconSize() -> QSize;
+            auto iconSize() const -> QSize;
 
             /**
              * @brief       Sets the current size of the icon.
@@ -102,7 +100,7 @@ namespace Nedrysoft { namespace Ribbon {
              *
              * @returns     the text that is displayed under the main button.
              */
-            auto text() -> QString;
+            auto text() const -> QString;
 
             /**
              * @brief       Sets the text that is displayed under the main button.
@@ -153,5 +151,3 @@ namespace Nedrysoft { namespace Ribbon {
             //! @endcond
     };
 }}
-
-#endif //NEDRYSOFT_RIBBONPUSHBUTTON_H

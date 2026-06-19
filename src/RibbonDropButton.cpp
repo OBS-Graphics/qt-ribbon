@@ -28,6 +28,7 @@
 #include <QApplication>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <ThemeSupport>
 
 constexpr auto ThemeStylesheet = R"(
     QPushButton {
@@ -71,7 +72,8 @@ Nedrysoft::Ribbon::RibbonDropButton::RibbonDropButton(QWidget *parent) :
     m_dropButton->setFlat(true);
     m_mainButton->setFlat(true);
 
-    connect(m_mainButton, &QPushButton::clicked, [=] (bool checked) {
+    connect(m_mainButton, &QPushButton::clicked, [this](bool checked) {
+        Q_UNUSED(checked)
         if (m_action) {
             auto dropButtonEvent = new Nedrysoft::Ribbon::DropButtonClickedEvent(this, false);
 
@@ -83,7 +85,8 @@ Nedrysoft::Ribbon::RibbonDropButton::RibbonDropButton(QWidget *parent) :
         Q_EMIT clicked(false);
     });
 
-    connect(m_dropButton, &QPushButton::clicked, [=] (bool checked) {
+    connect(m_dropButton, &QPushButton::clicked, [this](bool checked) {
+        Q_UNUSED(checked)
         if (m_action) {
             auto dropButtonEvent = new Nedrysoft::Ribbon::DropButtonClickedEvent(this, true);
 
@@ -97,7 +100,7 @@ Nedrysoft::Ribbon::RibbonDropButton::RibbonDropButton(QWidget *parent) :
 
     updateSizes();
 
-    connect(themeSupport, &Nedrysoft::ThemeSupport::ThemeSupport::themeChanged, [=](bool isDarkMode) {
+    connect(themeSupport, &Nedrysoft::ThemeSupport::ThemeSupport::themeChanged, [this](bool isDarkMode) {
         updateStyleSheets(isDarkMode);
     });
 
@@ -120,7 +123,7 @@ Nedrysoft::Ribbon::RibbonDropButton::~RibbonDropButton() {
     }
 }
 
-QIcon Nedrysoft::Ribbon::RibbonDropButton::icon() {
+QIcon Nedrysoft::Ribbon::RibbonDropButton::icon() const {
     return m_mainButton->icon();
 }
 
@@ -128,7 +131,7 @@ void Nedrysoft::Ribbon::RibbonDropButton::setIcon(QIcon &icon) {
     m_mainButton->setIcon(icon);
 }
 
-QSize Nedrysoft::Ribbon::RibbonDropButton::iconSize() {
+QSize Nedrysoft::Ribbon::RibbonDropButton::iconSize() const {
     return m_iconSize;
 }
 
@@ -211,7 +214,7 @@ auto Nedrysoft::Ribbon::RibbonDropButton::updateLayout() -> void {
     setLayout(m_layout);
 }
 
-auto Nedrysoft::Ribbon::RibbonDropButton::vertical() -> bool {
+auto Nedrysoft::Ribbon::RibbonDropButton::vertical() const -> bool {
     return m_vertical;
 }
 
@@ -221,7 +224,7 @@ auto Nedrysoft::Ribbon::RibbonDropButton::setVertical(const bool vertical) -> vo
     updateLayout();
 }
 
-auto Nedrysoft::Ribbon::RibbonDropButton::text() -> QString {
+auto Nedrysoft::Ribbon::RibbonDropButton::text() const -> QString {
     return m_text;
 }
 

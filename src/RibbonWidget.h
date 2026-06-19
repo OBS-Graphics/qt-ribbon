@@ -21,8 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NEDRYSOFT_RIBBONWIDGET_H
-#define NEDRYSOFT_RIBBONWIDGET_H
+#pragma once
 
 #include <QtGlobal>
 
@@ -143,7 +142,7 @@ namespace Nedrysoft { namespace Ribbon {
              *
              * @returns     the colour.
              */
-            auto backgroundColor() -> QColor;
+            auto backgroundColor() const -> QColor;
 
             friend class RibbonTabBar;
             friend class RibbonGroup;
@@ -164,5 +163,3 @@ namespace Nedrysoft { namespace Ribbon {
             //! @endcond
     };
 }}
-
-#endif // NEDRYSOFT_RIBBONWIDGET_H

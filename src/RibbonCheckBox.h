@@ -21,13 +21,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NEDRYSOFT_RIBBONCHECKBOX_H
-#define NEDRYSOFT_RIBBONCHECKBOX_H
+#pragma once
 
 #include "RibbonSpec.h"
 
 #include <QCheckBox>
-#include <ThemeSupport>
 
 namespace Nedrysoft { namespace Ribbon {
     /**
@@ -63,5 +61,3 @@ namespace Nedrysoft { namespace Ribbon {
             auto updateStyleSheet(bool isDarkMode) -> void;
     };
 }}
-
-#endif //NEDRYSOFT_RIBBONCHECKBOX_H

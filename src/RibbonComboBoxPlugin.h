@@ -21,8 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NEDRYSOFT_RIBBONCOMBOBOXPLUGIN_H
-#define NEDRYSOFT_RIBBONCOMBOBOXPLUGIN_H
+#pragma once
 
 #include <QtUiPlugin/QDesignerCustomWidgetInterface>
 
@@ -132,4 +131,3 @@ class RibbonComboBoxPlugin :
         //! @endcond
 };
 
-#endif // NEDRYSOFT_RIBBONCOMBOBOXPLUGIN_H

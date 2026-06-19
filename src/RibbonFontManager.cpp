@@ -37,7 +37,7 @@ auto Nedrysoft::Ribbon::RibbonFontManager::getInstance() ->Nedrysoft::Ribbon::Ri
     return &instance;
 }
 
-auto Nedrysoft::Ribbon::RibbonFontManager::normalFont() -> QString const {
+auto Nedrysoft::Ribbon::RibbonFontManager::normalFont() const -> QString {
     auto families = QFontDatabase::applicationFontFamilies(m_regularFontId);
 
     if (families.count()) {
@@ -47,7 +47,7 @@ auto Nedrysoft::Ribbon::RibbonFontManager::normalFont() -> QString const {
     return QString();
 }
 
-auto Nedrysoft::Ribbon::RibbonFontManager::boldFont() -> QString const {
+auto Nedrysoft::Ribbon::RibbonFontManager::boldFont() const -> QString {
     auto families = QFontDatabase::applicationFontFamilies(m_boldFontId);
 
     if (families.count()) {

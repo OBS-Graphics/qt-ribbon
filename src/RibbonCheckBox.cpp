@@ -23,8 +23,7 @@
 
 #include "RibbonCheckBox.h"
 
-#include <QApplication>
-#include <QSpacerItem>
+#include <ThemeSupport>
 
 constexpr auto ThemeStylesheet = R"(
     QCheckBox {
@@ -68,7 +67,7 @@ Nedrysoft::Ribbon::RibbonCheckBox::RibbonCheckBox(QWidget *parent) :
 
     auto themeSupport = Nedrysoft::ThemeSupport::ThemeSupport::getInstance();
 
-    connect(themeSupport, &Nedrysoft::ThemeSupport::ThemeSupport::themeChanged, [=](bool isDarkMode) {
+    connect(themeSupport, &Nedrysoft::ThemeSupport::ThemeSupport::themeChanged, [this](bool isDarkMode) {
         updateStyleSheet(isDarkMode);
     });
 

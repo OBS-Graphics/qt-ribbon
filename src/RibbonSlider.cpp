@@ -23,8 +23,7 @@
 
 #include "RibbonSlider.h"
 
-#include <QApplication>
-#include <QSpacerItem>
+#include <ThemeSupport>
 
 constexpr auto ThemeStylesheet = R"(
     QSlider {
@@ -53,7 +52,7 @@ Nedrysoft::Ribbon::RibbonSlider::RibbonSlider(QWidget *parent) :
 
     auto themeSupport = Nedrysoft::ThemeSupport::ThemeSupport::getInstance();
 
-    connect(themeSupport, &Nedrysoft::ThemeSupport::ThemeSupport::themeChanged, [=](bool isDarkMode) {
+    connect(themeSupport, &Nedrysoft::ThemeSupport::ThemeSupport::themeChanged, [this](bool isDarkMode) {
         updateStyleSheet(isDarkMode);
     });
 

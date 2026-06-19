@@ -26,7 +26,6 @@
 #include "RibbonFontManager.h"
 #include "RibbonWidget.h"
 
-#include <QApplication>
 #include <QPaintEvent>
 #include <QPainter>
 #include <QRegularExpression>
@@ -52,31 +51,10 @@ Nedrysoft::Ribbon::RibbonGroup::RibbonGroup(QWidget *parent) :
     this->setStyleSheet(QString("font: %1pt \"%2\"").arg(m_font.pointSize()).arg(m_font.family()));
 
     setGroupName(QString("Group"));
-#if (QT_VERSION_MAJOR<6)
-    connect(qobject_cast<QApplication *>(QCoreApplication::instance()), &QApplication::paletteChanged, [=] (const QPalette &) {
-        // TODO: anything to do?
-    });
-#endif
+
     updateMargins();
 
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-}
-
-auto Nedrysoft::Ribbon::RibbonGroup::event(QEvent *event) -> bool {
-    switch(event->type()) {
-        case QEvent::ApplicationPaletteChange: {
-#if (QT_VERSION_MAJOR>=6)
-            // TODO: anything to do?
-#endif
-            break;
-        }
-
-        default: {
-            break;
-        }
-    }
-
-    return QWidget::event(event);
 }
 
 auto Nedrysoft::Ribbon::RibbonGroup::paintEvent(QPaintEvent *event) -> void {
@@ -118,7 +96,7 @@ auto Nedrysoft::Ribbon::RibbonGroup::paintEvent(QPaintEvent *event) -> void {
     QWidget::paintEvent(event);
 }
 
-auto Nedrysoft::Ribbon::RibbonGroup::groupName() -> QString const {
+auto Nedrysoft::Ribbon::RibbonGroup::groupName() const -> QString {
     return m_groupName;
 }
 

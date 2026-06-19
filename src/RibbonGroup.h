@@ -21,8 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NEDRYSOFT_RIBBONGROUP_H
-#define NEDRYSOFT_RIBBONGROUP_H
+#pragma once
 
 #include <QtGlobal>
 
@@ -67,9 +66,11 @@ namespace Nedrysoft { namespace Ribbon {
             explicit RibbonGroup(QWidget *parent = nullptr);
 
             /**
-             * @brief       Destroys the RibbonGroup.
+             * @brief       Returns the displayed name of the group.
+             *
+             * @returns     the group name.
              */
-            auto groupName() -> QString const;
+            auto groupName() const -> QString;
 
             /**
              * @brief       Sets the displayed name of the group.
@@ -91,15 +92,6 @@ namespace Nedrysoft { namespace Ribbon {
              */
             auto paintEvent(QPaintEvent *event) -> void override;
 
-            /**
-             * @brief       Reimplements: QWidget::event(QEvent *event).
-             *
-             * @param[in]   event the event information.
-             *
-             * @returns     true if the event was handled; otherwise false.
-             */
-            auto event(QEvent *event) -> bool override;
-
         private:
             //! @cond
 
@@ -111,5 +103,3 @@ namespace Nedrysoft { namespace Ribbon {
             //! @endcond
     };
 }}
-
-#endif // NEDRYSOFT_RIBBONGROUP_H

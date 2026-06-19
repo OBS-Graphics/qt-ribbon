@@ -21,10 +21,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NEDRYSOFT_RIBBONSPEC_H
-#define NEDRYSOFT_RIBBONSPEC_H
+#pragma once
 
-#if defined(RIBBON_DESIGNER_EXPORT)
+#if defined(NEDRYSOFT_RIBBON_DESIGNER_EXPORT)
 #include <QtUiPlugin/QDesignerExportWidget>
 #define NEDRYSOFT_RIBBON_WIDGET_EXPORT Q_DECL_EXPORT
 #else
@@ -34,5 +33,3 @@
 #define NEDRYSOFT_RIBBON_WIDGET_EXPORT Q_DECL_IMPORT
 #endif
 #endif
-
-#endif // NEDRYSOFT_RIBBONSPEC_H

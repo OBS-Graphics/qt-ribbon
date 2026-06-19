@@ -21,8 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NEDRYSOFT_RIBBONGROUPPLUGIN_H
-#define NEDRYSOFT_RIBBONGROUPPLUGIN_H
+#pragma once
 
 #include <QtUiPlugin/QDesignerCustomWidgetInterface>
 
@@ -131,4 +130,3 @@ class RibbonGroupPlugin :
         //! @endcond
 };
 
-#endif // NEDRYSOFT_RIBBONGROUPPLUGIN_H

@@ -28,6 +28,7 @@
 
 #include <QApplication>
 #include <QStyle>
+#include <ThemeSupport>
 
 constexpr auto ThemeStylesheet = R"(
     QPushButton {
@@ -73,13 +74,14 @@ Nedrysoft::Ribbon::RibbonPushButton::RibbonPushButton(QWidget *parent) :
 
     setLayout(m_layout);
 
-    connect(m_mainButton, &QPushButton::clicked, [=] (bool checked) {
+    connect(m_mainButton, &QPushButton::clicked, [this](bool checked) {
+        Q_UNUSED(checked)
         Q_EMIT clicked();
     });
 
     auto themeSupport = Nedrysoft::ThemeSupport::ThemeSupport::getInstance();
 
-    connect(themeSupport, &Nedrysoft::ThemeSupport::ThemeSupport::themeChanged, [=](bool isDarkMode) {
+    connect(themeSupport, &Nedrysoft::ThemeSupport::ThemeSupport::themeChanged, [this](bool isDarkMode) {
         updateStyleSheets(isDarkMode);
     });
 
@@ -94,7 +96,7 @@ Nedrysoft::Ribbon::RibbonPushButton::~RibbonPushButton() {
     m_layout->deleteLater();
 }
 
-auto Nedrysoft::Ribbon::RibbonPushButton::icon() -> QIcon {
+auto Nedrysoft::Ribbon::RibbonPushButton::icon() const -> QIcon {
     return m_mainButton->icon();
 }
 
@@ -102,7 +104,7 @@ auto Nedrysoft::Ribbon::RibbonPushButton::setIcon(QIcon &icon) -> void {
     m_mainButton->setIcon(icon);
 }
 
-auto Nedrysoft::Ribbon::RibbonPushButton::iconSize() -> QSize {
+auto Nedrysoft::Ribbon::RibbonPushButton::iconSize() const -> QSize {
     return m_iconSize;
 }
 
@@ -113,7 +115,7 @@ auto Nedrysoft::Ribbon::RibbonPushButton::setIconSize(QSize iconSize) -> void
     updateSizes();
 }
 
-auto Nedrysoft::Ribbon::RibbonPushButton::text() -> QString {
+auto Nedrysoft::Ribbon::RibbonPushButton::text() const -> QString {
     return m_buttonLabel->text();
 }
 
@@ -158,4 +160,3 @@ auto Nedrysoft::Ribbon::RibbonPushButton::eventFilter(QObject *object, QEvent *e
 
     return false;
 }
-

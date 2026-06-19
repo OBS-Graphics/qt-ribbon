@@ -21,8 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NEDRYSOFT_RIBBONTOOLBUTTONPLUGIN_H
-#define NEDRYSOFT_RIBBONTOOLBUTTONPLUGIN_H
+#pragma once
 
 #include <QtUiPlugin/QDesignerCustomWidgetInterface>
 
@@ -132,4 +131,3 @@ class RibbonToolButtonPlugin :
         //! @endcond
 };
 
-#endif // NEDRYSOFT_RIBBONTOOLBUTTONPLUGIN_H
