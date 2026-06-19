@@ -25,8 +25,9 @@
 
 #include "RibbonWidget.h"
 
+#include <QGuiApplication>
 #include <QStyle>
-#include <ThemeSupport>
+#include <QStyleHints>
 
 constexpr auto ThemeStylesheet = R"(
     QToolButton {
@@ -44,13 +45,11 @@ constexpr auto ThemeStylesheet = R"(
 Nedrysoft::Ribbon::RibbonToolButton::RibbonToolButton(QWidget *parent) :
         QToolButton(parent) {
 
-    auto themeSupport = Nedrysoft::ThemeSupport::ThemeSupport::getInstance();
-
-    connect(themeSupport, &Nedrysoft::ThemeSupport::ThemeSupport::themeChanged, [this](bool isDarkMode) {
-        updateStyleSheet(isDarkMode);
+    connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, [this](Qt::ColorScheme scheme) {
+        updateStyleSheet(scheme == Qt::ColorScheme::Dark);
     });
 
-    updateStyleSheet(themeSupport->isDarkMode());
+    updateStyleSheet(QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark);
 }
 
 Nedrysoft::Ribbon::RibbonToolButton::~RibbonToolButton() {

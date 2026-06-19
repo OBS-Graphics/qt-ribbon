@@ -27,8 +27,9 @@
 #include "RibbonWidget.h"
 
 #include <QApplication>
+#include <QGuiApplication>
 #include <QStyle>
-#include <ThemeSupport>
+#include <QStyleHints>
 
 constexpr auto ThemeStylesheet = R"(
     QPushButton {
@@ -79,15 +80,13 @@ Nedrysoft::Ribbon::RibbonPushButton::RibbonPushButton(QWidget *parent) :
         Q_EMIT clicked();
     });
 
-    auto themeSupport = Nedrysoft::ThemeSupport::ThemeSupport::getInstance();
-
-    connect(themeSupport, &Nedrysoft::ThemeSupport::ThemeSupport::themeChanged, [this](bool isDarkMode) {
-        updateStyleSheets(isDarkMode);
+    connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, [this](Qt::ColorScheme scheme) {
+        updateStyleSheets(scheme == Qt::ColorScheme::Dark);
     });
 
     updateSizes();
 
-    updateStyleSheets(themeSupport->isDarkMode());
+    updateStyleSheets(QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark);
 }
 
 Nedrysoft::Ribbon::RibbonPushButton::~RibbonPushButton() {
@@ -131,13 +130,9 @@ auto Nedrysoft::Ribbon::RibbonPushButton::updateSizes() -> void {
 }
 
 auto Nedrysoft::Ribbon::RibbonPushButton::updateStyleSheets(bool isDarkMode) -> void {
-    Q_UNUSED(isDarkMode)
-
     QString styleSheet(ThemeStylesheet);
 
-    auto themeSupport = Nedrysoft::ThemeSupport::ThemeSupport::getInstance();
-
-    styleSheet.replace("[background-colour]", themeSupport->getColor(Nedrysoft::Ribbon::PushButtonColor).name());
+    styleSheet.replace("[background-colour]", QColor(Nedrysoft::Ribbon::PushButtonColor[isDarkMode ? Nedrysoft::Ribbon::Dark : Nedrysoft::Ribbon::Light]).name());
 
     m_mainButton->setStyleSheet(styleSheet);
     m_buttonLabel->setStyleSheet(styleSheet);
@@ -153,9 +148,7 @@ auto Nedrysoft::Ribbon::RibbonPushButton::eventFilter(QObject *object, QEvent *e
 
         m_mainButton->setStyleSheet(styleSheet);
     } else if (event->type()==QEvent::MouseButtonRelease) {
-        auto themeSupport = Nedrysoft::ThemeSupport::ThemeSupport::getInstance();
-
-        updateStyleSheets(themeSupport->isDarkMode());
+        updateStyleSheets(QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark);
     }
 
     return false;

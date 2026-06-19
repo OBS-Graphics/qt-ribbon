@@ -26,10 +26,11 @@
 #include "RibbonFontManager.h"
 #include "RibbonWidget.h"
 
+#include <QGuiApplication>
 #include <QPaintEvent>
 #include <QPainter>
 #include <QRegularExpression>
-#include <ThemeSupport>
+#include <QStyleHints>
 
 #if defined(Q_OS_WINDOWS)
 constexpr auto TitleAdjustment = -4;
@@ -62,9 +63,7 @@ auto Nedrysoft::Ribbon::RibbonGroup::paintEvent(QPaintEvent *event) -> void {
     auto widgetRect = rect();
     auto currentTheme = Nedrysoft::Ribbon::Light;
 
-    auto themeSupport = Nedrysoft::ThemeSupport::ThemeSupport::getInstance();
-
-    if (themeSupport->isDarkMode()) {
+    if (QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark) {
         currentTheme = Nedrysoft::Ribbon::Dark;
     }
 

@@ -26,9 +26,10 @@
 #include "RibbonWidget.h"
 
 #include <QApplication>
+#include <QGuiApplication>
 #include <QHBoxLayout>
+#include <QStyleHints>
 #include <QVBoxLayout>
-#include <ThemeSupport>
 
 constexpr auto ThemeStylesheet = R"(
     QPushButton {
@@ -56,8 +57,6 @@ Nedrysoft::Ribbon::RibbonDropButton::RibbonDropButton(QWidget *parent) :
 
     m_mainButton = new QPushButton;
     m_dropButton = new QPushButton;
-
-    auto themeSupport = Nedrysoft::ThemeSupport::ThemeSupport::getInstance();
 
     m_mainButton->installEventFilter(this);
 
@@ -100,13 +99,13 @@ Nedrysoft::Ribbon::RibbonDropButton::RibbonDropButton(QWidget *parent) :
 
     updateSizes();
 
-    connect(themeSupport, &Nedrysoft::ThemeSupport::ThemeSupport::themeChanged, [this](bool isDarkMode) {
-        updateStyleSheets(isDarkMode);
+    connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, [this](Qt::ColorScheme scheme) {
+        updateStyleSheets(scheme == Qt::ColorScheme::Dark);
     });
 
     updateLayout();
 
-    updateStyleSheets(themeSupport->isDarkMode());
+    updateStyleSheets(QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark);
 }
 
 Nedrysoft::Ribbon::RibbonDropButton::~RibbonDropButton() {

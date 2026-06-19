@@ -25,7 +25,8 @@
 
 #include "RibbonComboBox.h"
 
-#include <ThemeSupport>
+#include <QGuiApplication>
+#include <QStyleHints>
 
 constexpr auto ThemeStylesheet = R"(
     QComboBox {
@@ -56,13 +57,11 @@ Nedrysoft::Ribbon::RibbonComboBox::RibbonComboBox(QWidget *parent) :
 
     setAttribute(Qt::WA_MacShowFocusRect,false);
 
-    auto themeSupport = Nedrysoft::ThemeSupport::ThemeSupport::getInstance();
-
-    connect(themeSupport, &Nedrysoft::ThemeSupport::ThemeSupport::themeChanged, [this](bool isDarkMode) {
-        updateStyleSheet(isDarkMode);
+    connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, [this](Qt::ColorScheme scheme) {
+        updateStyleSheet(scheme == Qt::ColorScheme::Dark);
     });
 
-    updateStyleSheet(themeSupport->isDarkMode());
+    updateStyleSheet(QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark);
 }
 
 Nedrysoft::Ribbon::RibbonComboBox::~RibbonComboBox() {
@@ -72,13 +71,7 @@ Nedrysoft::Ribbon::RibbonComboBox::~RibbonComboBox() {
 auto Nedrysoft::Ribbon::RibbonComboBox::updateStyleSheet(bool isDarkMode) -> void {
     QString styleSheet(ThemeStylesheet);
 
-#if defined(Q_OS_MACOS)
-    auto themeSupport = Nedrysoft::ThemeSupport::ThemeSupport::getInstance();
-
-    styleSheet.replace("[selected-background-colour]", themeSupport->getHighlightedBackground().name());
-#else
     styleSheet.replace("[selected-background-colour]", this->palette().highlight().color().name());
-#endif
     styleSheet.replace("[theme]", isDarkMode ? "dark" : "light");
 
     if (isDarkMode) {
