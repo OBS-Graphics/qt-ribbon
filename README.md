@@ -15,38 +15,43 @@ The ribbon library provides a simple ribbon bar implementation for Qt-based appl
 * RibbonCheckBox is a checkbox styled for the ribbon.
 * RibbonLineEdit is a line edit styled for the ribbon.
 * RibbonSlider is a slider styled for the ribbon.
-* RibbonToolBar is a tool button styled for the ribbon.
+* RibbonToolButton is a tool button styled for the ribbon.
 
 You can build the designer plugin, which allows the layout of ribbon bars in Designer or Qt Creator.
 
 ## Requirements
 
-* Qt 5
-* CMake
+* Qt 6
+* CMake 3.21+
+* C++20-capable compiler
 
-## Building
+## Using via CPM
 
-To build the library, invoke CMake or open the CMakeLists.txt file in your preferred IDE.
+The easiest way to consume this library is through [CPM.cmake](https://github.com/cpm-cmake/CPM.cmake):
 
-Setting the following CMake variables allows the customisation of the build.
-
-```
-NEDRYSOFT_RIBBON_LIBRARY_DIR=<dir>
-```
-
-Sets the output folder for the dynamic library; if omitted, you can find the binaries in the default location.
-
-```
-NEDRYSOFT_RIBBON_BUILD_DESIGNER_PLUGIN=ON|OFF
+```cmake
+CPMAddPackage("gh:obs-graphics/qt-ribbon@1.0.0")
+target_link_libraries(MyTarget PRIVATE Ribbon::Ribbon)
 ```
 
-Set to ON to build the designer plugin. (defaults to off)
+CPM will automatically fetch and build the ThemeSupport dependency.
 
-```
-NEDRYSOFT_RIBBON_DESIGNER_DIR=<dir>
+## Building standalone
+
+To build the library, invoke CMake or open the `CMakeLists.txt` file in your preferred IDE.
+
+```bash
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build
 ```
 
-Sets the output folder for the designer plugin; if omitted, you can find the binaries in the default location.
+### CMake options
+
+| Variable | Default | Description |
+|---|---|---|
+| `RIBBON_THEMESUPPORT_GITHUB_REPO` | `nedrysoft/qt-themesupport` | GitHub repository for the ThemeSupport dependency |
+| `RIBBON_THEMESUPPORT_GIT_TAG` | `main` | Git tag or branch for ThemeSupport |
+| `NEDRYSOFT_RIBBON_BUILD_DESIGNER_PLUGIN` | `OFF` | Build the Qt Designer plugin |
 
 # License
 
