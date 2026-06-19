@@ -43,8 +43,10 @@ constexpr auto ThemeStylesheet = R"(
 Nedrysoft::Ribbon::RibbonTabBar::RibbonTabBar(QWidget *parent) :
         QTabBar(parent) {
 
-    m_normalFont = QFont("Open Sans", DefaultFontSize);
-    m_selectedFont = QFont("Open Sans", DefaultFontSize, QFont::Bold);
+    m_normalFont = font();
+    m_normalFont.setPointSize(DefaultFontSize);
+    m_selectedFont = m_normalFont;
+    m_selectedFont.setBold(true);
 
     m_mouseInWidget = false;
 

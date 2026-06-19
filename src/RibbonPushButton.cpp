@@ -52,14 +52,10 @@ Nedrysoft::Ribbon::RibbonPushButton::RibbonPushButton(QWidget *parent) :
 
     m_buttonLabel->setAlignment(Qt::AlignHCenter);
 
-    auto font = QFont("Open Sans", RibbonPushButtonDefaultFontSize);
-
     m_mainButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     m_buttonLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
     m_mainButton->installEventFilter(this);
-
-    m_buttonLabel->setFont(font);
 
     m_layout->addWidget(m_mainButton);
     m_layout->addWidget(m_buttonLabel);

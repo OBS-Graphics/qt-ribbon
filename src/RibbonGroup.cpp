@@ -41,7 +41,8 @@ Nedrysoft::Ribbon::RibbonGroup::RibbonGroup(QWidget *parent) :
         QWidget(parent),
         m_fontMetrics(QFont()) {
 
-    m_font = QFont("Open Sans", RibbonGroupDefaultFontSize);
+    m_font = font();
+    m_font.setPointSize(RibbonGroupDefaultFontSize);
     m_fontMetrics = QFontMetrics(m_font);
 
     // set the stylesheet font, this then propagates down to all children of the group.

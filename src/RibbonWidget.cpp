@@ -25,26 +25,12 @@
 
 #include "RibbonTabBar.h"
 
-#include <QFontDatabase>
 #include <QGuiApplication>
 #include <QPaintEvent>
 #include <QPainter>
 #include <QStyleHints>
 
-namespace {
-    static const bool s_fontsLoaded = []() {
-        QFontDatabase::addApplicationFont(":/Nedrysoft/Ribbon/OpenSans/OpenSans-Regular.ttf");
-        QFontDatabase::addApplicationFont(":/Nedrysoft/Ribbon/OpenSans/OpenSans-Bold.ttf");
-        return true;
-    }();
-}
-
 constexpr auto ThemeStylesheet = R"(
-    QWidget {
-        font-family: "Open Sans";
-        font-size: 10pt;
-    }
-
     QPushButton {
         border-radius: none;
     }

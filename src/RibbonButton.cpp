@@ -52,10 +52,6 @@ constexpr auto ThemeStylesheet = R"(
 Nedrysoft::Ribbon::RibbonButton::RibbonButton(QWidget *parent) :
         QPushButton(parent) {
 
-    auto font = QFont("Open Sans", RibbonButtonDefaultFontSize);
-
-    setFont(font);
-
     setFlat(true);
 
     connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, [this](Qt::ColorScheme scheme) {
