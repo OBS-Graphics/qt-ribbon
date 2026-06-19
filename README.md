@@ -21,7 +21,7 @@ You can build the designer plugin, which allows the layout of ribbon bars in Des
 
 ## Requirements
 
-* Qt 6
+* Qt 6.5+
 * CMake 3.21+
 * C++20-capable compiler
 
@@ -34,7 +34,7 @@ CPMAddPackage("gh:obs-graphics/qt-ribbon@1.0.0")
 target_link_libraries(MyTarget PRIVATE Ribbon::Ribbon)
 ```
 
-CPM will automatically fetch and build the ThemeSupport dependency.
+The library has no external dependencies — only Qt 6.5+ is required.
 
 ## Building standalone
 
@@ -49,8 +49,6 @@ cmake --build build
 
 | Variable | Default | Description |
 |---|---|---|
-| `RIBBON_THEMESUPPORT_GITHUB_REPO` | `nedrysoft/qt-themesupport` | GitHub repository for the ThemeSupport dependency |
-| `RIBBON_THEMESUPPORT_GIT_TAG` | `main` | Git tag or branch for ThemeSupport |
 | `NEDRYSOFT_RIBBON_BUILD_DESIGNER_PLUGIN` | `OFF` | Build the Qt Designer plugin |
 
 # License

@@ -29,8 +29,9 @@
 #include "RibbonWidget.h"
 
 #include <QApplication>
+#include <QGuiApplication>
 #include <QStyle>
-#include <ThemeSupport>
+#include <QStyleHints>
 
 constexpr auto ThemeStylesheet = R"(
     QPushButton {
@@ -60,13 +61,11 @@ Nedrysoft::Ribbon::RibbonButton::RibbonButton(QWidget *parent) :
 
     setFlat(true);
 
-    auto themeSupport = Nedrysoft::ThemeSupport::ThemeSupport::getInstance();
-
-    connect(themeSupport, &Nedrysoft::ThemeSupport::ThemeSupport::themeChanged, [this](bool isDarkMode) {
-        updateStyleSheets(isDarkMode);
+    connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, [this](Qt::ColorScheme scheme) {
+        updateStyleSheets(scheme == Qt::ColorScheme::Dark);
     });
 
-    updateStyleSheets(themeSupport->isDarkMode());
+    updateStyleSheets(QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark);
 }
 
 Nedrysoft::Ribbon::RibbonButton::~RibbonButton() {
@@ -75,10 +74,6 @@ Nedrysoft::Ribbon::RibbonButton::~RibbonButton() {
 
 auto Nedrysoft::Ribbon::RibbonButton::updateStyleSheets(bool isDarkMode) -> void {
     QString styleSheet(ThemeStylesheet);
-
-    auto themeSupport = Nedrysoft::ThemeSupport::ThemeSupport::getInstance();
-
-    styleSheet.replace("[background-colour]", themeSupport->getColor(Nedrysoft::Ribbon::PushButtonColor).name());
 
     if (isDarkMode) {
         styleSheet.replace("[normal-background-colour]", "#434343");

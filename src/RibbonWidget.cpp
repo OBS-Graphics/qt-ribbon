@@ -25,9 +25,10 @@
 
 #include "RibbonTabBar.h"
 
+#include <QGuiApplication>
 #include <QPaintEvent>
 #include <QPainter>
-#include <ThemeSupport>
+#include <QStyleHints>
 
 constexpr auto ThemeStylesheet = R"(
     QWidget {
@@ -60,9 +61,7 @@ auto Nedrysoft::Ribbon::RibbonWidget::paintEvent(QPaintEvent *event) -> void {
     auto widgetRect = rect();
     auto currentTheme = Nedrysoft::Ribbon::Light;
 
-    auto themeSupport = Nedrysoft::ThemeSupport::ThemeSupport::getInstance();
-
-    if (themeSupport->isDarkMode()) {
+    if (QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark) {
         currentTheme = Nedrysoft::Ribbon::Dark;
     }
 
@@ -80,9 +79,7 @@ auto Nedrysoft::Ribbon::RibbonWidget::paintEvent(QPaintEvent *event) -> void {
 auto Nedrysoft::Ribbon::RibbonWidget::backgroundColor() const -> QColor {
     auto currentTheme = Nedrysoft::Ribbon::Light;
 
-    auto themeSupport = Nedrysoft::ThemeSupport::ThemeSupport::getInstance();
-
-    if (themeSupport->isDarkMode()) {
+    if (QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark) {
         currentTheme = Nedrysoft::Ribbon::Dark;
     }
 

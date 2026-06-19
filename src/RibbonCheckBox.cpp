@@ -23,7 +23,8 @@
 
 #include "RibbonCheckBox.h"
 
-#include <ThemeSupport>
+#include <QGuiApplication>
+#include <QStyleHints>
 
 constexpr auto ThemeStylesheet = R"(
     QCheckBox {
@@ -65,13 +66,11 @@ Nedrysoft::Ribbon::RibbonCheckBox::RibbonCheckBox(QWidget *parent) :
 
     setAttribute(Qt::WA_MacShowFocusRect,false);
 
-    auto themeSupport = Nedrysoft::ThemeSupport::ThemeSupport::getInstance();
-
-    connect(themeSupport, &Nedrysoft::ThemeSupport::ThemeSupport::themeChanged, [this](bool isDarkMode) {
-        updateStyleSheet(isDarkMode);
+    connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, [this](Qt::ColorScheme scheme) {
+        updateStyleSheet(scheme == Qt::ColorScheme::Dark);
     });
 
-    updateStyleSheet(themeSupport->isDarkMode());
+    updateStyleSheet(QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark);
 }
 
 Nedrysoft::Ribbon::RibbonCheckBox::~RibbonCheckBox() {

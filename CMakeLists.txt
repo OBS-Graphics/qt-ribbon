@@ -36,25 +36,6 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-include(cmake/get_cpm.cmake)
-
-# ThemeSupport dependency — try an already-available target first, then CPM
-set(RIBBON_THEMESUPPORT_GITHUB_REPO "nedrysoft/qt-themesupport"
-    CACHE STRING "GitHub repository for ThemeSupport (owner/repo)")
-set(RIBBON_THEMESUPPORT_GIT_TAG "main"
-    CACHE STRING "Git tag/branch for ThemeSupport")
-
-if(NOT TARGET ThemeSupport)
-    find_package(ThemeSupport QUIET)
-    if(NOT ThemeSupport_FOUND)
-        CPMAddPackage(
-            NAME ThemeSupport
-            GITHUB_REPOSITORY "${RIBBON_THEMESUPPORT_GITHUB_REPO}"
-            GIT_TAG "${RIBBON_THEMESUPPORT_GIT_TAG}"
-        )
-    endif()
-endif()
-
 find_package(Qt6 COMPONENTS Core Widgets REQUIRED)
 
 set(library_SOURCES
@@ -121,8 +102,6 @@ target_link_libraries(Ribbon
     PUBLIC
         Qt6::Core
         Qt6::Widgets
-    PRIVATE
-        ThemeSupport
 )
 
 if(APPLE)
@@ -193,7 +172,6 @@ if(NEDRYSOFT_RIBBON_BUILD_DESIGNER_PLUGIN)
     target_link_libraries(RibbonDesigner PRIVATE
         Qt6::Widgets
         Qt6::UiPlugin
-        ThemeSupport
     )
 
     if(APPLE)
