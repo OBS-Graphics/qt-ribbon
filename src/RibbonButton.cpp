@@ -25,7 +25,6 @@
 
 #include "RibbonButton.h"
 
-#include "RibbonFontManager.h"
 #include "RibbonWidget.h"
 
 #include <QApplication>
@@ -53,9 +52,7 @@ constexpr auto ThemeStylesheet = R"(
 Nedrysoft::Ribbon::RibbonButton::RibbonButton(QWidget *parent) :
         QPushButton(parent) {
 
-    auto fontManager = RibbonFontManager::getInstance();
-
-    auto font = QFont(fontManager->normalFont(), RibbonButtonDefaultFontSize);
+    auto font = QFont("Open Sans", RibbonButtonDefaultFontSize);
 
     setFont(font);
 

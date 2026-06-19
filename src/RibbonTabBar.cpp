@@ -25,7 +25,6 @@
 
 #include "RibbonTabBar.h"
 
-#include "RibbonFontManager.h"
 #include "RibbonWidget.h"
 
 #include <QApplication>
@@ -44,10 +43,8 @@ constexpr auto ThemeStylesheet = R"(
 Nedrysoft::Ribbon::RibbonTabBar::RibbonTabBar(QWidget *parent) :
         QTabBar(parent) {
 
-    auto fontManager = Nedrysoft::Ribbon::RibbonFontManager::getInstance();
-
-    m_normalFont = QFont(fontManager->normalFont(), DefaultFontSize);
-    m_selectedFont = QFont(fontManager->boldFont(), DefaultFontSize, QFont::Bold);
+    m_normalFont = QFont("Open Sans", DefaultFontSize);
+    m_selectedFont = QFont("Open Sans", DefaultFontSize, QFont::Bold);
 
     m_mouseInWidget = false;
 

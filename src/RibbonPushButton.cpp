@@ -23,7 +23,6 @@
 
 #include "RibbonPushButton.h"
 
-#include "RibbonFontManager.h"
 #include "RibbonWidget.h"
 
 #include <QApplication>
@@ -53,9 +52,7 @@ Nedrysoft::Ribbon::RibbonPushButton::RibbonPushButton(QWidget *parent) :
 
     m_buttonLabel->setAlignment(Qt::AlignHCenter);
 
-    auto fontManager = RibbonFontManager::getInstance();
-
-    auto font = QFont(fontManager->normalFont(), RibbonPushButtonDefaultFontSize);
+    auto font = QFont("Open Sans", RibbonPushButtonDefaultFontSize);
 
     m_mainButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     m_buttonLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);

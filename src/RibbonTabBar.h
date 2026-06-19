@@ -29,8 +29,6 @@
 #include <QTabBar>
 
 namespace Nedrysoft { namespace Ribbon {
-    class RibbonFontManager;
-
     /**
      * @brief       The RibbonTabBar widget provides a ribbon stylised tab bar.
      *
